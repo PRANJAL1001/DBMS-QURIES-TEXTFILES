@@ -1,0 +1,209 @@
+SQL> CREATE TABLE STUDENTT (SID NUMBER(10) PRIMARY KEY,SNAME VARCHAR(10),SEM NUMBER(5),DEPT VARCHAR(10));
+
+Table created.
+
+SQL> INSERT INTO STUDENTT values(100,'abc',1,'it');
+
+1 row created.
+
+SQL> INSERT INTO STUDENTT values(101,'xyz',1,'cse');
+
+1 row created.
+
+SQL> INSERT INTO STUDENTT values(102,'pqr',3,'mech');
+
+1 row created.
+
+SQL> drop table studentt;
+
+Table dropped.
+
+SQL> CREATE TABLE STUDENTT (SID NUMBER(10) PRIMARY KEY,SNAME VARCHAR(10),SEM NUMBER(5),DEPT VARCHAR(10));
+
+Table created.
+
+SQL> INSERT INTO STUDENTT values(100,'abc',1,'it');
+
+1 row created.
+
+SQL> INSERT INTO STUDENTT values(101,'xyz',2,'cse');
+
+1 row created.
+
+SQL> INSERT INTO STUDENTT values(102,'pqr',3,'mech');
+
+1 row created.
+
+SQL> INSERT INTO STUDENTT values(103,'mns',4,'elec');
+
+1 row created.
+
+SQL> INSERT INTO STUDENTT values(104,'efg',5,'eee');
+
+1 row created.
+
+SQL> CREATE TABLE COURCEE (CID NUMBER (10) PRIMARY KEY ,CNAME VARCHAR (10),INC VARCHAR(10));
+
+Table created.
+
+SQL> INSERT INTO COURCEE values(1,'it','abc');
+
+1 row created.
+
+SQL> INSERT INTO COURCEE values(2,'cse','xyz');
+
+1 row created.
+
+SQL> INSERT INTO COURCEE values(3,'mech','mns');
+
+1 row created.
+
+SQL> INSERT INTO COURCEE values(4,'eee','pqr');
+
+1 row created.
+
+SQL> INSERT INTO COURCEE values(5,'elec','def');
+
+1 row created.
+
+SQL> create table enroll(sid number(4) references studentt(sid),sname varchar(10), cid number(2) references courcee (cid) ,cname varchar(10));
+
+Table created.
+
+SQL> INSERT INTO enroll values(100,'abc',null,null);
+
+1 row created.
+
+SQL> drop table enroll;
+
+Table dropped.
+
+SQL> create table enroll(sid number(10) references studentt(sid),sname varchar(10), cid number(10) references courcee (cid) ,cname varchar(10));
+
+Table created.
+
+SQL> INSERT INTO enroll values(100,'abc',null,null);
+
+1 row created.
+
+SQL> INSERT INTO enroll values(101,'xyz',null,null);
+
+1 row created.
+
+SQL> INSERT INTO enroll values(103,'pqr',null,null);
+
+1 row created.
+
+SQL> INSERT INTO enroll values(102,'mns',5,'elec');
+
+1 row created.
+
+SQL> INSERT INTO enroll values(104,'efg',4,'eee');
+
+1 row created.
+
+SQL> select * from studentt;
+
+       SID SNAME             SEM DEPT                                           
+---------- ---------- ---------- ----------                                     
+       100 abc                 1 it                                             
+       101 xyz                 2 cse                                            
+       102 pqr                 3 mech                                           
+       103 mns                 4 elec                                           
+       104 efg                 5 eee                                            
+
+SQL> select * from courcee;
+
+       CID CNAME      INC                                                       
+---------- ---------- ----------                                                
+         1 it         abc                                                       
+         2 cse        xyz                                                       
+         3 mech       mns                                                       
+         4 eee        pqr                                                       
+         5 elec       def                                                       
+
+SQL> select * from enroll;
+
+       SID SNAME             CID CNAME                                          
+---------- ---------- ---------- ----------                                     
+       100 abc                                                                  
+       101 xyz                                                                  
+       103 pqr                                                                  
+       102 mns                 5 elec                                           
+       104 efg                 4 eee                                            
+
+SQL> select * from studentt LEFT OUTER JOIN courcee ON studentt.sname=courcee.inc;
+
+       SID SNAME             SEM DEPT              CID CNAME      INC           
+---------- ---------- ---------- ---------- ---------- ---------- ----------    
+       100 abc                 1 it                  1 it         abc           
+       101 xyz                 2 cse                 2 cse        xyz           
+       103 mns                 4 elec                3 mech       mns           
+       102 pqr                 3 mech                4 eee        pqr           
+       104 efg                 5 eee                                       
+
+
+SQL> select * from studentt LEFT OUTER JOIN courcee ON studentt.dept=courcee.cname;
+
+       SID SNAME             SEM DEPT              CID CNAME      INC           
+---------- ---------- ---------- ---------- ---------- ---------- ----------    
+       100 abc                 1 it                  1 it         abc           
+       101 xyz                 2 cse                 2 cse        xyz           
+       102 pqr                 3 mech                3 mech       mns           
+       104 efg                 5 eee                 4 eee        pqr           
+       103 mns                 4 elec                5 elec       def           
+
+SQL> select * from studentt right OUTER JOIN courcee ON studentt.dept=courcee.cname;
+
+       SID SNAME             SEM DEPT              CID CNAME      INC           
+---------- ---------- ---------- ---------- ---------- ---------- ----------    
+       100 abc                 1 it                  1 it         abc           
+       101 xyz                 2 cse                 2 cse        xyz           
+       102 pqr                 3 mech                3 mech       mns           
+       103 mns                 4 elec                5 elec       def           
+       104 efg                 5 eee                 4 eee        pqr           
+
+SQL> select * from studentt FULL OUTER JOIN courcee ON studentt.dept=courcee.cname;
+
+       SID SNAME             SEM DEPT              CID CNAME      INC           
+---------- ---------- ---------- ---------- ---------- ---------- ----------    
+       100 abc                 1 it                  1 it         abc           
+       101 xyz                 2 cse                 2 cse        xyz           
+       102 pqr                 3 mech                3 mech       mns           
+       104 efg                 5 eee                 4 eee        pqr           
+       103 mns                 4 elec                5 elec       def           
+
+SQL> select * from studentt LEFT OUTER JOIN courcee ON studentt.sname=courcee.inc;
+
+       SID SNAME             SEM DEPT              CID CNAME      INC           
+---------- ---------- ---------- ---------- ---------- ---------- ----------    
+       100 abc                 1 it                  1 it         abc           
+       101 xyz                 2 cse                 2 cse        xyz           
+       103 mns                 4 elec                3 mech       mns           
+       102 pqr                 3 mech                4 eee        pqr           
+       104 efg                 5 eee                                            
+
+SQL> select * from studentt FULL OUTER JOIN courcee ON studentt.sname=courcee.inc;
+
+       SID SNAME             SEM DEPT              CID CNAME      INC           
+---------- ---------- ---------- ---------- ---------- ---------- ----------    
+       100 abc                 1 it                  1 it         abc           
+       101 xyz                 2 cse                 2 cse        xyz           
+       103 mns                 4 elec                3 mech       mns           
+       102 pqr                 3 mech                4 eee        pqr           
+                                                     5 elec       def           
+       104 efg                 5 eee                                            
+
+6 rows selected.
+
+SQL> select * from studentt RIGHT OUTER JOIN courcee ON studentt.sname=courcee.inc;
+
+       SID SNAME             SEM DEPT              CID CNAME      INC           
+---------- ---------- ---------- ---------- ---------- ---------- ----------    
+       100 abc                 1 it                  1 it         abc           
+       101 xyz                 2 cse                 2 cse        xyz           
+       102 pqr                 3 mech                4 eee        pqr           
+       103 mns                 4 elec                3 mech       mns           
+                                                     5 elec       def           
+
+SQL> SPOOL OFF;

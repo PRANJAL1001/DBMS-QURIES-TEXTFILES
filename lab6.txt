@@ -1,0 +1,269 @@
+SQL> create table EMPLOYEE_2(EMP_ID number(5),EMP_NAME VARCHAR(20),DEPT VARCHAR(5),GENDER VARCHAR(10) CHECK(GENDER IN ('MALE','FEMALE')),AGE NUMBER(5),CITY VARCHAR(20));
+
+Table created.
+
+SQL> INSERT INTO EMPLOYEE_2 VALUES(1,'Kunal','CSE','MALE',34,'BBSR');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE_2 VALUES(2,'ANAND','CSE','MALE',32,'BBSR');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE_2 VALUES(3,'REEMA','IT','FEMALE',27,'BBSR');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE_2 VALUES(4,'SWATI','IT','FEMALE',26,'BANGLORE');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE_2 VALUES(4,'SWATI','IT','FEMALE',26,'BANGLORE');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE_2 VALUES(5,'SHIV','BANK','MALE',30,'ROURKELA');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE_2 VALUES(6,'ABHISHEK','HR','MALE',29,'DELHI');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE_2 VALUES(7,'RAHUL','CSCE','MALE',25,'CTK');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE_2 VALUES(8,'PRAGYAN','CSCE','FEMALE',30,'PURI');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE_2 VALUES(9,'KAUSHAL','IT','MALE',32,'KOLKATA');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE_2 VALUES(10,'SEENU','ACCOUNTS','FEMALE',33,'NOIDA');
+INSERT INTO EMPLOYEE_2 VALUES(10,'SEENU','ACCOUNTS','FEMALE',33,'NOIDA')
+                                         *
+ERROR at line 1:
+ORA-12899: value too large for column "PRANJAL1835"."EMPLOYEE_2"."DEPT" 
+(actual: 8, maximum: 5) 
+
+
+SQL> INSERT INTO EMPLOYEE_2 VALUES(10,'SEENU','ACCO.','FEMALE',33,'NOIDA');
+
+1 row created.
+
+SQL> SELECT * FROM EMPLOYEE_2;
+
+    EMP_ID EMP_NAME             DEPT  GENDER            AGE CITY                
+---------- -------------------- ----- ---------- ---------- --------------------
+         1 Kunal                CSE   MALE               34 BBSR                
+         2 ANAND                CSE   MALE               32 BBSR                
+         3 REEMA                IT    FEMALE             27 BBSR                
+         4 SWATI                IT    FEMALE             26 BANGLORE            
+         4 SWATI                IT    FEMALE             26 BANGLORE            
+         5 SHIV                 BANK  MALE               30 ROURKELA            
+         6 ABHISHEK             HR    MALE               29 DELHI               
+         7 RAHUL                CSCE  MALE               25 CTK                 
+         8 PRAGYAN              CSCE  FEMALE             30 PURI                
+         9 KAUSHAL              IT    MALE               32 KOLKATA             
+        10 SEENU                ACCO. FEMALE             33 NOIDA               
+
+11 rows selected.
+
+SQL> SELECT EMP_NAME,CITY FROM EMPLOYEE_2 WHERE GENDER='MALE' AND CITY='DELHI';
+
+EMP_NAME             CITY                                                       
+-------------------- --------------------                                       
+ABHISHEK             DELHI                                                      
+
+SQL> SELECT * FROM EMPLOYEE_2 WHERE EMP_NAME LIKE 'A%' OR EMP_NAME LIKE 'a%';
+
+    EMP_ID EMP_NAME             DEPT  GENDER            AGE CITY                
+---------- -------------------- ----- ---------- ---------- --------------------
+         2 ANAND                CSE   MALE               32 BBSR                
+         6 ABHISHEK             HR    MALE               29 DELHI               
+
+SQL> alter table EMPLOYEE_2 ADD SALARY;
+alter table EMPLOYEE_2 ADD SALARY
+                           *
+ERROR at line 1:
+ORA-02263: need to specify the datatype for this column 
+
+
+SQL> alter table EMPLOYEE_2 ADD SALARY NUMBER(20);
+
+Table altered.
+
+SQL>  update employee_2 set salary=40000 where emp_id=1;
+
+1 row updated.
+
+SQL> update employee_2 set salary=30000 where emp_id=2;
+
+1 row updated.
+
+SQL> update employee_2 set salary=50000 where emp_id=3;
+
+1 row updated.
+
+SQL> update employee_2 set salary=25000 where emp_id=4;
+
+2 rows updated.
+
+SQL> update employee_2 set salary=30000 where emp_id=5;
+
+1 row updated.
+
+SQL> update employee_2 set salary=20000 where emp_id=6;
+
+1 row updated.
+
+SQL> update employee_2 set salary=45000 where emp_id=7;
+
+1 row updated.
+
+SQL> update employee_2 set salary=35000 where emp_id=8;
+
+1 row updated.
+
+SQL> update employee_2 set salary=55000 where emp_id=9;
+
+1 row updated.
+
+SQL> update employee_2 set salary=25000 where emp_id=10;
+
+1 row updated.
+
+SQL> SELECT * FROM EMPLOYEE_2;
+
+    EMP_ID EMP_NAME             DEPT  GENDER            AGE CITY                
+---------- -------------------- ----- ---------- ---------- --------------------
+    SALARY                                                                      
+----------                                                                      
+         1 Kunal                CSE   MALE               34 BBSR                
+     40000                                                                      
+                                                                                
+         2 ANAND                CSE   MALE               32 BBSR                
+     30000                                                                      
+                                                                                
+         3 REEMA                IT    FEMALE             27 BBSR                
+     50000                                                                      
+                                                                                
+
+    EMP_ID EMP_NAME             DEPT  GENDER            AGE CITY                
+---------- -------------------- ----- ---------- ---------- --------------------
+    SALARY                                                                      
+----------                                                                      
+         4 SWATI                IT    FEMALE             26 BANGLORE            
+     25000                                                                      
+                                                                                
+         4 SWATI                IT    FEMALE             26 BANGLORE            
+     25000                                                                      
+                                                                                
+         5 SHIV                 BANK  MALE               30 ROURKELA            
+     30000                                                                      
+                                                                                
+
+    EMP_ID EMP_NAME             DEPT  GENDER            AGE CITY                
+---------- -------------------- ----- ---------- ---------- --------------------
+    SALARY                                                                      
+----------                                                                      
+         6 ABHISHEK             HR    MALE               29 DELHI               
+     20000                                                                      
+                                                                                
+         7 RAHUL                CSCE  MALE               25 CTK                 
+     45000                                                                      
+                                                                                
+         8 PRAGYAN              CSCE  FEMALE             30 PURI                
+     35000                                                                      
+                                                                                
+
+    EMP_ID EMP_NAME             DEPT  GENDER            AGE CITY                
+---------- -------------------- ----- ---------- ---------- --------------------
+    SALARY                                                                      
+----------                                                                      
+         9 KAUSHAL              IT    MALE               32 KOLKATA             
+     55000                                                                      
+                                                                                
+        10 SEENU                ACCO. FEMALE             33 NOIDA               
+     25000                                                                      
+                                                                                
+
+11 rows selected.
+
+SQL> SET LINESIZE 300;
+SQL> SELECT * FROM EMPLOYEE_2;
+
+    EMP_ID EMP_NAME             DEPT  GENDER            AGE CITY                     SALARY                                                                                                                                                                                                                 
+---------- -------------------- ----- ---------- ---------- -------------------- ----------                                                                                                                                                                                                                 
+         1 Kunal                CSE   MALE               34 BBSR                      40000                                                                                                                                                                                                                 
+         2 ANAND                CSE   MALE               32 BBSR                      30000                                                                                                                                                                                                                 
+         3 REEMA                IT    FEMALE             27 BBSR                      50000                                                                                                                                                                                                                 
+         4 SWATI                IT    FEMALE             26 BANGLORE                  25000                                                                                                                                                                                                                 
+         4 SWATI                IT    FEMALE             26 BANGLORE                  25000                                                                                                                                                                                                                 
+         5 SHIV                 BANK  MALE               30 ROURKELA                  30000                                                                                                                                                                                                                 
+         6 ABHISHEK             HR    MALE               29 DELHI                     20000                                                                                                                                                                                                                 
+         7 RAHUL                CSCE  MALE               25 CTK                       45000                                                                                                                                                                                                                 
+         8 PRAGYAN              CSCE  FEMALE             30 PURI                      35000                                                                                                                                                                                                                 
+         9 KAUSHAL              IT    MALE               32 KOLKATA                   55000                                                                                                                                                                                                                 
+        10 SEENU                ACCO. FEMALE             33 NOIDA                     25000                                                                                                                                                                                                                 
+
+11 rows selected.
+
+SQL> SELECT *FROM EMPLOYEE_2 WHERE GENDER='FEMALE' AND AGE>30 ORDER BY SALARY DESC;
+
+    EMP_ID EMP_NAME             DEPT  GENDER            AGE CITY                     SALARY                                                                                                                                                                                                                 
+---------- -------------------- ----- ---------- ---------- -------------------- ----------                                                                                                                                                                                                                 
+        10 SEENU                ACCO. FEMALE             33 NOIDA                     25000                                                                                                                                                                                                                 
+
+SQL> SELECT EMP_ID,EMP_NAME,DEPT FROM EMPLOYEE_2 WHERE GENDER='FEMALE' AND AGE>30 ORDER BY SALARY DESC;
+
+    EMP_ID EMP_NAME             DEPT                                                                                                                                                                                                                                                                        
+---------- -------------------- -----                                                                                                                                                                                                                                                                       
+        10 SEENU                ACCO.                                                                                                                                                                                                                                                                       
+
+SQL> SELECT EMP_ID,EMP_NAME,DEPT FROM EMPLOYEE_2 WHERE GENDER='FEMALE' AND SALARY>=30000;
+
+    EMP_ID EMP_NAME             DEPT                                                                                                                                                                                                                                                                        
+---------- -------------------- -----                                                                                                                                                                                                                                                                       
+         3 REEMA                IT                                                                                                                                                                                                                                                                          
+         8 PRAGYAN              CSCE                                                                                                                                                                                                                                                                        
+
+SQL> SELECT AVG(AGE) FROM EMPLOYEE_2 WHERE GENDER ='MALE';
+
+  AVG(AGE)                                                                                                                                                                                                                                                                                                  
+----------                                                                                                                                                                                                                                                                                                  
+30.3333333                                                                                                                                                                                                                                                                                                  
+
+SQL> SELECT SUM(SALARY) FROM EMPLOYEE_2 WHERE GENDER='FEMALE' AND DEPT='CSE';
+
+SUM(SALARY)                                                                                                                                                                                                                                                                                                 
+-----------                                                                                                                                                                                                                                                                                                 
+                                                                                                                                                                                                                                                                                                            
+
+SQL> SELECT MAX(SALARY) FROM EMPLOYEE_2;
+
+MAX(SALARY)                                                                                                                                                                                                                                                                                                 
+-----------                                                                                                                                                                                                                                                                                                 
+      55000                                                                                                                                                                                                                                                                                                 
+
+SQL> SELECT MIN(SALARY) FROM EMPLOYEE_2;
+
+MIN(SALARY)                                                                                                                                                                                                                                                                                                 
+-----------                                                                                                                                                                                                                                                                                                 
+      20000                                                                                                                                                                                                                                                                                                 
+
+SQL> SELECT *FROM EMPLOYEE_2 WHERE SALARY=(SELECT MAX(SALARY) FROM EMPLOYEE_2) OR SALARY=(SELECT MIN(SALARY) FROM EMPLOYEE_2);
+
+    EMP_ID EMP_NAME             DEPT  GENDER            AGE CITY                     SALARY                                                                                                                                                                                                                 
+---------- -------------------- ----- ---------- ---------- -------------------- ----------                                                                                                                                                                                                                 
+         6 ABHISHEK             HR    MALE               29 DELHI                     20000                                                                                                                                                                                                                 
+         9 KAUSHAL              IT    MALE               32 KOLKATA                   55000                                                                                                                                                                                                                 
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SPOOL OFF;

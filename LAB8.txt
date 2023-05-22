@@ -1,0 +1,414 @@
+SQL> create table DEPARTMENT(D_ID VARCHAR(10)PRIMARY KEY,D_NAME VARCHAR(10),CAMPUS VARCHAR(10));
+create table DEPARTMENT(D_ID VARCHAR(10)PRIMARY KEY,D_NAME VARCHAR(10),CAMPUS VARCHAR(10))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> DROP TABLE DEPARTMENT;
+
+Table dropped.
+
+SQL> create table DEPARTMENT(D_ID VARCHAR(10)PRIMARY KEY,D_NAME VARCHAR(10),CAMPUS VARCHAR(10));
+
+Table created.
+
+SQL> INSERT INTO DEPARTMENT VALUES('D01','CSE','15');
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT VALUES('D02','IT','15');
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT VALUES('D03','CSCE','15');
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT VALUES('D04','CSSE','15');
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT VALUES('D05','ARCH','7');
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT VALUES('D06','ETC','12');
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT VALUES('D07','EI','12');
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT VALUES('D08','CIVIL','3');
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT VALUES('D09','EEE','3');
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT VALUES('D10','HR','4');
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT VALUES('D11','ACCOUNTS','4');
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT VALUES('D12','ADMIN','4');
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT VALUES('D13','ADMISSION','1');
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT VALUES('D14','MEDICAL','5');
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT VALUES('D15','MGMT','5');
+
+1 row created.
+
+SQL> CREATE TABLE EMPLOYEES (EMP_ID VARCHAR(10)PRIMARY KEY,EMP_NAME VARCHAR(10),SALARY NUMBER(10),D_ID VARCHAR(10) REFERENCES DEPARTMENT (D_ID));
+
+Table created.
+
+SQL> INSERT INTO EMPLOYEES('E01','ABC',20000,'D01');
+INSERT INTO EMPLOYEES('E01','ABC',20000,'D01')
+                      *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword 
+
+
+SQL> INSERT INTO EMPLOYEES VALUES('E01','ABC',20000,'D01');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E02','BCD',25000,'D01');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E03','CDE',30000,'D02');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E04','DEF',35000,'D02');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E05','EFG',40000,'D03');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E06','FGH',45000,'D03');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E07','GHI',50000,'D04');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E08','HIJ',55000,'D04');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E09','IJK',60000,'D05');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E10','JKL',20000,'D05');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E11','KLM',25000,'D06');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E12','LMN',30000,'D06');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E13','MN0',35000,'D07');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E14','N0P',40000,'D07');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E15','0PQ',45000,'D08');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E16','PQR',50000,'D08');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E17','QRS',55000,'D09');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E18','RST',60000,'D09');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E19','STU',20000,'D10');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E20','TUV',25000,'D10');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E21','UVW',30000,'D11');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E22','VWX',35000,'D11');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E23','WXY',40000,'D12');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E24','XYZ',45000,'D12');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E25','YZA',50000,'D13');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E26','ZAB',55000,'D13');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E27','AAB',60000,'D14');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E28','AAC',20000,'D14');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E29','AAD',25000,'D15');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEES VALUES('E30','AAE',30000,'D15');
+
+1 row created.
+
+SQL> SELECT *FROM DEPARTMENT;
+
+D_ID       D_NAME     CAMPUS                                                    
+---------- ---------- ----------                                                
+D01        CSE        15                                                        
+D02        IT         15                                                        
+D03        CSCE       15                                                        
+D04        CSSE       15                                                        
+D05        ARCH       7                                                         
+D06        ETC        12                                                        
+D07        EI         12                                                        
+D08        CIVIL      3                                                         
+D09        EEE        3                                                         
+D10        HR         4                                                         
+D11        ACCOUNTS   4                                                         
+
+D_ID       D_NAME     CAMPUS                                                    
+---------- ---------- ----------                                                
+D12        ADMIN      4                                                         
+D13        ADMISSION  1                                                         
+D14        MEDICAL    5                                                         
+D15        MGMT       5                                                         
+
+15 rows selected.
+
+SQL> SELECT *FROM EMPLOYEES;
+
+EMP_ID     EMP_NAME       SALARY D_ID                                           
+---------- ---------- ---------- ----------                                     
+E01        ABC             20000 D01                                            
+E02        BCD             25000 D01                                            
+E03        CDE             30000 D02                                            
+E04        DEF             35000 D02                                            
+E05        EFG             40000 D03                                            
+E06        FGH             45000 D03                                            
+E07        GHI             50000 D04                                            
+E08        HIJ             55000 D04                                            
+E09        IJK             60000 D05                                            
+E10        JKL             20000 D05                                            
+E11        KLM             25000 D06                                            
+
+EMP_ID     EMP_NAME       SALARY D_ID                                           
+---------- ---------- ---------- ----------                                     
+E12        LMN             30000 D06                                            
+E13        MN0             35000 D07                                            
+E14        N0P             40000 D07                                            
+E15        0PQ             45000 D08                                            
+E16        PQR             50000 D08                                            
+E17        QRS             55000 D09                                            
+E18        RST             60000 D09                                            
+E19        STU             20000 D10                                            
+E20        TUV             25000 D10                                            
+E21        UVW             30000 D11                                            
+E22        VWX             35000 D11                                            
+
+EMP_ID     EMP_NAME       SALARY D_ID                                           
+---------- ---------- ---------- ----------                                     
+E23        WXY             40000 D12                                            
+E24        XYZ             45000 D12                                            
+E25        YZA             50000 D13                                            
+E26        ZAB             55000 D13                                            
+E27        AAB             60000 D14                                            
+E28        AAC             20000 D14                                            
+E29        AAD             25000 D15                                            
+E30        AAE             30000 D15                                            
+
+30 rows selected.
+
+SQL> SELECT * FROM EMPLOYEES WHERE SALARY=(MAX(SALARY));
+SELECT * FROM EMPLOYEES WHERE SALARY=(MAX(SALARY))
+                                      *
+ERROR at line 1:
+ORA-00934: group function is not allowed here 
+
+
+SQL> SELECT * FROM EMPLOYEES WHERE SALARY=(MAX(SALARY) FROM EMPLOYEES);
+SELECT * FROM EMPLOYEES WHERE SALARY=(MAX(SALARY) FROM EMPLOYEES)
+                                      *
+ERROR at line 1:
+ORA-00934: group function is not allowed here 
+
+
+SQL> SELECT * FROM EMPLOYEES WHERE SALARY=(SELECT MAX(SALARY) FROM EMPLOYEES);
+
+EMP_ID     EMP_NAME       SALARY D_ID                                           
+---------- ---------- ---------- ----------                                     
+E09        IJK             60000 D05                                            
+E18        RST             60000 D09                                            
+E27        AAB             60000 D14                                            
+
+SQL> SELECT * FROM EMPLOYEES WHERE SALARY<(SELECT AVG(SALARY) FROM EMPLOYEES);
+
+EMP_ID     EMP_NAME       SALARY D_ID                                           
+---------- ---------- ---------- ----------                                     
+E01        ABC             20000 D01                                            
+E02        BCD             25000 D01                                            
+E03        CDE             30000 D02                                            
+E04        DEF             35000 D02                                            
+E10        JKL             20000 D05                                            
+E11        KLM             25000 D06                                            
+E12        LMN             30000 D06                                            
+E13        MN0             35000 D07                                            
+E19        STU             20000 D10                                            
+E20        TUV             25000 D10                                            
+E21        UVW             30000 D11                                            
+
+EMP_ID     EMP_NAME       SALARY D_ID                                           
+---------- ---------- ---------- ----------                                     
+E22        VWX             35000 D11                                            
+E28        AAC             20000 D14                                            
+E29        AAD             25000 D15                                            
+E30        AAE             30000 D15                                            
+
+15 rows selected.
+
+SQL> SELECT EMP_ID,EMP_NAME FROM EMPLOYEES WHERE D_ID=(SELECT D_ID FROM DEPARTMENT WHERE CAMPUS='15');
+SELECT EMP_ID,EMP_NAME FROM EMPLOYEES WHERE D_ID=(SELECT D_ID FROM DEPARTMENT WHERE CAMPUS='15')
+                                                  *
+ERROR at line 1:
+ORA-01427: single-row subquery returns more than one row 
+
+
+SQL> SELECT EMP_ID,EMP_NAME FROM EMPLOYEES WHERE D_ID IN (SELECT D_ID FROM DEPARTMENT WHERE CAMPUS='15');
+
+EMP_ID     EMP_NAME                                                             
+---------- ----------                                                           
+E01        ABC                                                                  
+E02        BCD                                                                  
+E03        CDE                                                                  
+E04        DEF                                                                  
+E05        EFG                                                                  
+E06        FGH                                                                  
+E07        GHI                                                                  
+E08        HIJ                                                                  
+
+8 rows selected.
+
+SQL> SELECT EMP_ID,EMP_NAME FROM EMPLOYEES WHERE D_ID NOT IN (SELECT D_ID FROM DEPARTMENT WHERE CAMPUS='15');
+
+EMP_ID     EMP_NAME                                                             
+---------- ----------                                                           
+E22        VWX                                                                  
+E21        UVW                                                                  
+E24        XYZ                                                                  
+E23        WXY                                                                  
+E10        JKL                                                                  
+E09        IJK                                                                  
+E26        ZAB                                                                  
+E25        YZA                                                                  
+E18        RST                                                                  
+E17        QRS                                                                  
+E14        N0P                                                                  
+
+EMP_ID     EMP_NAME                                                             
+---------- ----------                                                           
+E13        MN0                                                                  
+E20        TUV                                                                  
+E19        STU                                                                  
+E28        AAC                                                                  
+E27        AAB                                                                  
+E12        LMN                                                                  
+E11        KLM                                                                  
+E30        AAE                                                                  
+E29        AAD                                                                  
+E16        PQR                                                                  
+E15        0PQ                                                                  
+
+22 rows selected.
+
+SQL> SELECT EMP_ID,EMP_NAME FROM EMPLOYEES WHERE D_ID NOT IN (SELECT D_ID FROM DEPARTMENT WHERE CAMPUS CHECK IN('5','7','4','12'));
+SELECT EMP_ID,EMP_NAME FROM EMPLOYEES WHERE D_ID NOT IN (SELECT D_ID FROM DEPARTMENT WHERE CAMPUS CHECK IN('5','7','4','12'))
+                                                                                                  *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> SELECT EMP_ID,EMP_NAME FROM EMPLOYEES WHERE D_ID NOT IN (SELECT D_ID FROM DEPARTMENT WHERE CAMPUS=CHECK IN('5','7','4','12'));
+SELECT EMP_ID,EMP_NAME FROM EMPLOYEES WHERE D_ID NOT IN (SELECT D_ID FROM DEPARTMENT WHERE CAMPUS=CHECK IN('5','7','4','12'))
+                                                                                                  *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> SELECT EMP_ID,EMP_NAME FROM EMPLOYEES WHERE D_ID NOT IN (SELECT D_ID FROM DEPARTMENT WHERE CAMPUS IN('5','7','4','12'));
+
+EMP_ID     EMP_NAME                                                             
+---------- ----------                                                           
+E04        DEF                                                                  
+E03        CDE                                                                  
+E26        ZAB                                                                  
+E25        YZA                                                                  
+E18        RST                                                                  
+E17        QRS                                                                  
+E02        BCD                                                                  
+E01        ABC                                                                  
+E06        FGH                                                                  
+E05        EFG                                                                  
+E16        PQR                                                                  
+
+EMP_ID     EMP_NAME                                                             
+---------- ----------                                                           
+E15        0PQ                                                                  
+E08        HIJ                                                                  
+E07        GHI                                                                  
+
+14 rows selected.
+
+SQL> SPOOL OFF;

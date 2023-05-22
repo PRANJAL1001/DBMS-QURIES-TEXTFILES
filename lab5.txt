@@ -1,0 +1,188 @@
+SQL> create table customer(cust_id number(5) NOT NULL PRIMARY KEY,cust_name varchar(20) UNIQUE,
+  2  gender varchar(1) CHECK(gender in('M','F','T')),age number(3) CHECK(age >=18 AND age < 80),city varchar(10));
+
+Table created.
+
+SQL>  insert into customer values(101,'Priyanshu','M',20,'Patna');
+
+1 row created.
+
+SQL>  insert into customer values(102,'Pranjal','M',20,'Agra');
+
+1 row created.
+
+SQL>  insert into customer values(103,'Manisha','F',20,'Patna');
+
+1 row created.
+
+SQL>  insert into customer values(104,'Mohit','M',20,'Jaipur');
+
+1 row created.
+
+SQL>  insert into customer values(105,'Adarsh','M',18,'Kanpur');
+
+1 row created.
+
+SQL>  insert into customer values(106,'SMRUTI','M',19,'BBSR');
+
+1 row created.
+
+SQL>  insert into customer values(107,'Srabani','M',19,'CTK');
+
+1 row created.
+
+SQL>  insert into customer values(108,'Subham','M',20,'CTK');
+
+1 row created.
+
+SQL> select *from customer;
+
+   CUST_ID CUST_NAME            G        AGE CITY                               
+---------- -------------------- - ---------- ----------                         
+       101 Priyanshu            M         20 Patna                              
+       102 Pranjal              M         20 Agra                               
+       103 Manisha              F         20 Patna                              
+       104 Mohit                M         20 Jaipur                             
+       105 Adarsh               M         18 Kanpur                             
+       106 SMRUTI               M         19 BBSR                               
+       107 Srabani              M         19 CTK                                
+       108 Subham               M         20 CTK                                
+
+8 rows selected.
+
+SQL>  insert into customer values(109,'Hritika','F',20,'Patna');
+
+1 row created.
+
+SQL>  insert into customer values(110,'Mansi','F',19,'Mathura');
+
+1 row created.
+
+SQL> select *from customer;
+
+   CUST_ID CUST_NAME            G        AGE CITY                               
+---------- -------------------- - ---------- ----------                         
+       101 Priyanshu            M         20 Patna                              
+       102 Pranjal              M         20 Agra                               
+       103 Manisha              F         20 Patna                              
+       104 Mohit                M         20 Jaipur                             
+       105 Adarsh               M         18 Kanpur                             
+       106 SMRUTI               M         19 BBSR                               
+       107 Srabani              M         19 CTK                                
+       108 Subham               M         20 CTK                                
+       109 Hritika              F         20 Patna                              
+       110 Mansi                F         19 Mathura                            
+
+10 rows selected.
+
+SQL> select * from customer where city='BBSR' OR city='CTK';
+
+   CUST_ID CUST_NAME            G        AGE CITY                               
+---------- -------------------- - ---------- ----------                         
+       106 SMRUTI               M         19 BBSR                               
+       107 Srabani              M         19 CTK                                
+       108 Subham               M         20 CTK                                
+
+SQL> select cust_id,cust_name,age from customer;
+
+   CUST_ID CUST_NAME                   AGE                                      
+---------- -------------------- ----------                                      
+       101 Priyanshu                    20                                      
+       102 Pranjal                      20                                      
+       103 Manisha                      20                                      
+       104 Mohit                        20                                      
+       105 Adarsh                       18                                      
+       106 SMRUTI                       19                                      
+       107 Srabani                      19                                      
+       108 Subham                       20                                      
+       109 Hritika                      20                                      
+       110 Mansi                        19                                      
+
+10 rows selected.
+
+SQL> alter table customer add purchase_amount int;
+
+Table altered.
+
+SQL> update customer set purchase_amount=50000 where cust_id=101;
+
+1 row updated.
+
+SQL> update customer set purchase_amount=5000 where cust_id=102;
+
+1 row updated.
+
+SQL> update customer set purchase_amount=15000 where cust_id=103;
+
+1 row updated.
+
+SQL> update customer set purchase_amount=1500 where cust_id=104;
+
+1 row updated.
+
+SQL> update customer set purchase_amount=100000 where cust_id=105;
+
+1 row updated.
+
+SQL> update customer set purchase_amount=25000 where cust_id=106;
+
+1 row updated.
+
+SQL> update customer set purchase_amount=2000 where cust_id=107;
+
+1 row updated.
+
+SQL> update customer set purchase_amount=12000 where cust_id=108;
+
+1 row updated.
+
+SQL> update customer set purchase_amount=100 where cust_id=109;
+
+1 row updated.
+
+SQL> update customer set purchase_amount=500 where cust_id=110;
+
+1 row updated.
+
+SQL> select *from customer;
+
+   CUST_ID CUST_NAME            G        AGE CITY       PURCHASE_AMOUNT         
+---------- -------------------- - ---------- ---------- ---------------         
+       101 Priyanshu            M         20 Patna                50000         
+       102 Pranjal              M         20 Agra                  5000         
+       103 Manisha              F         20 Patna                15000         
+       104 Mohit                M         20 Jaipur                1500         
+       105 Adarsh               M         18 Kanpur              100000         
+       106 SMRUTI               M         19 BBSR                 25000         
+       107 Srabani              M         19 CTK                   2000         
+       108 Subham               M         20 CTK                  12000         
+       109 Hritika              F         20 Patna                  100         
+       110 Mansi                F         19 Mathura                500         
+
+10 rows selected.
+
+SQL>  select cust_name,city from customer where gender='M' and purchase_amount >=5000;
+
+CUST_NAME            CITY                                                       
+-------------------- ----------                                                 
+Priyanshu            Patna                                                      
+Pranjal              Agra                                                       
+Adarsh               Kanpur                                                     
+SMRUTI               BBSR                                                       
+Subham               CTK                                                        
+
+SQL> select * from customer where cust_name like 'A%' or cust_name like 'a%';
+
+   CUST_ID CUST_NAME            G        AGE CITY       PURCHASE_AMOUNT         
+---------- -------------------- - ---------- ---------- ---------------         
+       105 Adarsh               M         18 Kanpur              100000         
+
+SQL>  select * from customer where gender='F' order by purchase_amount desc;
+
+   CUST_ID CUST_NAME            G        AGE CITY       PURCHASE_AMOUNT         
+---------- -------------------- - ---------- ---------- ---------------         
+       103 Manisha              F         20 Patna                15000         
+       110 Mansi                F         19 Mathura                500         
+       109 Hritika              F         20 Patna                  100         
+
+SQL> spool off;

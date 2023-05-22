@@ -1,0 +1,164 @@
+SQL> create table employee_2(emp_id number(2),emp_name varchar(10),dept varchar(10),gender varchar(10),age number(5),city varchar(10));
+
+Table created.
+
+SQL> insert into employee_2 values(1,'Kunal','CSE','Male',34,'BBSR');
+
+1 row created.
+
+SQL> insert into employee_2 values(2,'Anand','CSE','Male',32,'BBSR');
+
+1 row created.
+
+SQL> insert into employee_2 values(3,'Reema','IT','Female',27,'BBSR');
+
+1 row created.
+
+SQL> insert into employee_2 values(4,'Swati','IT','Female',26,'Bangalore');
+
+1 row created.
+
+SQL> insert into employee_2 values(5,'Shiv','Bank','Male',30,'Rourkela');
+
+1 row created.
+
+SQL> insert into employee_2 values(6,'Abhishek','HR','Male',29,'Delhi');
+
+1 row created.
+
+SQL> insert into employee_2 values(7,'Rahul','CSCE','Male',25,'CTC');
+
+1 row created.
+
+SQL> insert into employee_2 values(8,'Pragyan','CSCE','Female',30,'Puri');
+
+1 row created.
+
+SQL> insert into employee_2 values(9,'Kaushal','IT','Male',32,'Kolkata');
+
+1 row created.
+
+SQL> insert into employee_2 values(10,'Seenu','Accounts','Female',33,'Noida');
+
+1 row created.
+
+SQL> select * from employee_2;
+
+    EMP_ID EMP_NAME   DEPT       GENDER            AGE CITY                     
+---------- ---------- ---------- ---------- ---------- ----------               
+         1 Kunal      CSE        Male               34 BBSR                     
+         2 Anand      CSE        Male               32 BBSR                     
+         3 Reema      IT         Female             27 BBSR                     
+         4 Swati      IT         Female             26 Bangalore                
+         5 Shiv       Bank       Male               30 Rourkela                 
+         6 Abhishek   HR         Male               29 Delhi                    
+         7 Rahul      CSCE       Male               25 CTC                      
+         8 Pragyan    CSCE       Female             30 Puri                     
+         9 Kaushal    IT         Male               32 Kolkata                  
+        10 Seenu      Accounts   Female             33 Noida                    
+
+10 rows selected.
+
+SQL> select emp_name,city from employee_2 where gender='Male' and city='Delhi';
+
+EMP_NAME   CITY                                                                 
+---------- ----------                                                           
+Abhishek   Delhi                                                                
+
+SQL> select * from employee_2 where emp_name like 'A%';
+
+    EMP_ID EMP_NAME   DEPT       GENDER            AGE CITY                     
+---------- ---------- ---------- ---------- ---------- ----------               
+         2 Anand      CSE        Male               32 BBSR                     
+         6 Abhishek   HR         Male               29 Delhi                    
+
+SQL> alter table employee_2 add salary number(10
+  2  );
+
+Table altered.
+
+SQL> update employee_2 set salary=40000 where emp_id=1;
+
+1 row updated.
+
+SQL> update employee_2 set salary=30000 where emp_id=2;
+
+1 row updated.
+
+SQL> update employee_2 set salary=50000 where emp_id=3;
+
+1 row updated.
+
+SQL> update employee_2 set salary=25000 where emp_id=4;
+
+1 row updated.
+
+SQL> update employee_2 set salary=30000 where emp_id=5;
+
+1 row updated.
+
+SQL> update employee_2 set salary=20000 where emp_id=6;
+
+1 row updated.
+
+SQL> update employee_2 set salary=45000 where emp_id=7;
+
+1 row updated.
+
+SQL> update employee_2 set salary=35000 where emp_id=8;
+
+1 row updated.
+
+SQL> update employee_2 set salary=55000 where emp_id=9;
+
+1 row updated.
+
+SQL> update employee_2 set salary=25000 where emp_id=10;
+
+1 row updated.
+
+SQL> select * from employee_2 where gender='Female' and age>30 order by salary desc;
+
+    EMP_ID EMP_NAME   DEPT       GENDER            AGE CITY           SALARY    
+---------- ---------- ---------- ---------- ---------- ---------- ----------    
+        10 Seenu      Accounts   Female             33 Noida           25000    
+
+SQL> select emp_id,emp_name,dept from employee_2 where gender='Female' and salary>=30000;
+
+    EMP_ID EMP_NAME   DEPT                                                      
+---------- ---------- ----------                                                
+         3 Reema      IT                                                        
+         8 Pragyan    CSCE                                                      
+
+SQL> select AVG(age) from employee_2 where gender='Male';
+
+  AVG(AGE)                                                                      
+----------                                                                      
+30.3333333                                                                      
+
+SQL> select SUM(salary) from employee_2 where gender='Female' and dept='CSE';
+
+SUM(SALARY)                                                                     
+-----------                                                                     
+                                                                                
+
+SQL> select MAX(salary) from employee_2;
+
+MAX(SALARY)                                                                     
+-----------                                                                     
+      55000                                                                     
+
+SQL> select MIN(salary) from employee_2;
+
+MIN(SALARY)                                                                     
+-----------                                                                     
+      20000                                                                     
+
+SQL> select * from employee_2 where salary=(select max(salary) from employee_2) or salary=(select min(salary) from employee_2);
+
+    EMP_ID EMP_NAME   DEPT       GENDER            AGE CITY           SALARY    
+---------- ---------- ---------- ---------- ---------- ---------- ----------    
+         6 Abhishek   HR         Male               29 Delhi           20000    
+         9 Kaushal    IT         Male               32 Kolkata         55000    
+
+SQL> spool off;

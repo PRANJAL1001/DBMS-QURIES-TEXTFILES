@@ -1,0 +1,220 @@
+select:
+1. all cols all rows
+2. all cols restricted rows(where)
+3. restricted cols but all rows(col names that we need)
+4. restricted cols restricted rows.
+
+grant-to give access(permission).
+revoke-to take back the given access(permission).
+TO CLEAR SCREEN : cl scr
+to view the table : DESCRIBE table_name,DESC table_name;
+
+
+
+
+
+
+
+
+SQL*Plus: Release 11.2.0.2.0 Production on Thu Jan 19 16:37:40 2023
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> CONNECT
+Enter user-name: pranjal1835
+Enter password:
+Connected.
+SQL> CREATE TABLE STUDENT(NAME VARCHAR2(100),ROLL_NO NUMBER(1000),DEPT VARCHAR2(4),AGE NUMBER(100),GENDER(10),SEM NUMBER(1),CITY VARCHAR2(20),CGPA NUMBER(4,2),BAL_FEE NUMBER(100));
+CREATE TABLE STUDENT(NAME VARCHAR2(100),ROLL_NO NUMBER(1000),DEPT VARCHAR2(4),AGE NUMBER(100),GENDER(10),SEM NUMBER(1),CITY VARCHAR2(20),CGPA NUMBER(4,2),BAL_FEE NUMBER(100))
+                                                       *
+ERROR at line 1:
+ORA-01727: numeric precision specifier is out of range (1 to 38)
+
+
+SQL> CREATE TABLE STUDENT(NAME VARCHAR2(100),ROLL_NO NUMBER(20),DEPT VARCHAR2(4),AGE NUMBER(100),GENDER(10),SEM NUMBER(1),CITY VARCHAR2(20),CGPA NUMBER(4,2),BAL_FEE NUMBER(100));
+CREATE TABLE STUDENT(NAME VARCHAR2(100),ROLL_NO NUMBER(20),DEPT VARCHAR2(4),AGE NUMBER(100),GENDER(10),SEM NUMBER(1),CITY VARCHAR2(20),CGPA NUMBER(4,2),BAL_FEE NUMBER(100))
+                                                                                       *
+ERROR at line 1:
+ORA-01727: numeric precision specifier is out of range (1 to 38)
+
+
+SQL> CREATE TABLE STUDENT(NAME VARCHAR2(100),ROLL_NO NUMBER(20),DEPT VARCHAR2(4),AGE NUMBER(10),GENDER(10),SEM NUMBER(1),CITY VARCHAR2(20),CGPA NUMBER(4,2),BAL_FEE NUMBER(100));
+CREATE TABLE STUDENT(NAME VARCHAR2(100),ROLL_NO NUMBER(20),DEPT VARCHAR2(4),AGE NUMBER(10),GENDER(10),SEM NUMBER(1),CITY VARCHAR2(20),CGPA NUMBER(4,2),BAL_FEE NUMBER(100))
+                                                                                                 *
+ERROR at line 1:
+ORA-00902: invalid datatype
+
+
+SQL> CREATE TABLE STUDENT(NAME VARCHAR2(100),ROLL_NO NUMBER(20),DEPT VARCHAR2(4),AGE NUMBER(10),GENDER VARCHAR2(10),SEM NUMBER(1),CITY VARCHAR2(20),CGPA NUMBER(4,2),BAL_FEE NUMBER(100));
+CREATE TABLE STUDENT(NAME VARCHAR2(100),ROLL_NO NUMBER(20),DEPT VARCHAR2(4),AGE NUMBER(10),GENDER VARCHAR2(10),SEM NUMBER(1),CITY VARCHAR2(20),CGPA NUMBER(4,2),BAL_FEE NUMBER(100))
+                                                                                                                                                                               *
+ERROR at line 1:
+ORA-01727: numeric precision specifier is out of range (1 to 38)
+
+
+SQL> CREATE TABLE STUDENT(NAME VARCHAR2(100),ROLL_NO NUMBER(20),DEPT VARCHAR2(4),AGE NUMBER(10),GENDER VARCHAR2(10),SEM NUMBER(1),CITY VARCHAR2(20),CGPA NUMBER(4,2),BAL_FEE NUMBER(10));
+
+Table created.
+
+SQL> INSERT INTO STUDENT(NAME,ROLL,DEPT,AGE,GENDER,SEMESTER,CITY,CGPA,CGPA,BAL_FEE) VALUES ('RAHUL',1,'CSE',18,'MALE',4,'BBSR',7.5,30000);
+INSERT INTO STUDENT(NAME,ROLL,DEPT,AGE,GENDER,SEMESTER,CITY,CGPA,CGPA,BAL_FEE) VALUES ('RAHUL',1,'CSE',18,'MALE',4,'BBSR',7.5,30000)
+                                                                               *
+ERROR at line 1:
+ORA-00947: not enough values
+
+
+SQL> INSERT INTO STUDENT(NAME,ROLL,DEPT,AGE,GENDER,SEMESTER,CITY,CGPA,BAL_FEE) VALUES ('RAHUL',1,'CSE',18,'MALE',4,'BBSR',7.5,30000);
+INSERT INTO STUDENT(NAME,ROLL,DEPT,AGE,GENDER,SEMESTER,CITY,CGPA,BAL_FEE) VALUES ('RAHUL',1,'CSE',18,'MALE',4,'BBSR',7.5,30000)
+                                              *
+ERROR at line 1:
+ORA-00904: "SEMESTER": invalid identifier
+
+
+SQL> INSERT INTO STUDENT(NAME,ROLL,DEPT,AGE,GENDER,SEM,CITY,CGPA,BAL_FEE) VALUES ('RAHUL',1,'CSE',18,'MALE',4,'BBSR',7.5,30000);
+INSERT INTO STUDENT(NAME,ROLL,DEPT,AGE,GENDER,SEM,CITY,CGPA,BAL_FEE) VALUES ('RAHUL',1,'CSE',18,'MALE',4,'BBSR',7.5,30000)
+                         *
+ERROR at line 1:
+ORA-00904: "ROLL": invalid identifier
+
+
+SQL> INSERT INTO STUDENT(NAME,ROLL_NO,DEPT,AGE,GENDER,SEM,CITY,CGPA,BAL_FEE) VALUES ('RAHUL',1,'CSE',18,'MALE',4,'BBSR',7.5,30000);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT(NAME,ROLL_NO,DEPT,AGE,GENDER,SEM,CITY,CGPA,BAL_FEE) VALUES ('ANAND',2,'CSE',28,'MALE',4,'NEW DELHI',8.5,20000);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT(NAME,ROLL_NO,DEPT,AGE,GENDER,SEM,CITY,CGPA,BAL_FEE) VALUES ('ANJALI',3,'CSE',17,'FEMALE',4,'KOLKATA',8.46,50000);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT(NAME,ROLL_NO,DEPT,AGE,GENDER,SEM,CITY,CGPA,BAL_FEE) VALUES ('PRIYA',4,'CSE',19,'FEMALE',4,'PUNE',9.5,10000);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT(NAME,ROLL_NO,DEPT,AGE,GENDER,SEM,CITY,CGPA,BAL_FEE) VALUES ('AAKARSH',6,'CSSE',18,'MALE',6,'VARANASI',7.5,30000);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT(NAME,ROLL_NO,DEPT,AGE,GENDER,SEM,CITY,CGPA,BAL_FEE) VALUES ('AAYUSH',5,'CSSE',19,'MALE',6,'KANPUR',8.5,20000);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT(NAME,ROLL_NO,DEPT,AGE,GENDER,SEM,CITY,CGPA,BAL_FEE) VALUES ('NAMAN',7,'CSSE',20,'MALE',6,'JAIPUR',9.5,50000);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT(NAME,ROLL_NO,DEPT,AGE,GENDER,SEM,CITY,CGPA,BAL_FEE) VALUES ('SHREYA',8,'CSSE',18,'FEMALE',6,'ALLAHABAD',9.3,20000);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT(NAME,ROLL_NO,DEPT,AGE,GENDER,SEM,CITY,CGPA,BAL_FEE) VALUES ('SHALU',9,'IT',19,'FEMALE',6,'KOLKATA',8.3,5000);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT(NAME,ROLL_NO,DEPT,AGE,GENDER,SEM,CITY,CGPA,BAL_FEE) VALUES ('SILAJEET',10,'CSSE',20,'MALE',6,'KOLKATA',9.5,25000);
+
+1 row created.
+
+SQL> SELECT * FROM STUDENT;
+
+NAME
+--------------------------------------------------------------------------------
+   ROLL_NO DEPT        AGE GENDER            SEM CITY                       CGPA
+---------- ---- ---------- ---------- ---------- -------------------- ----------
+   BAL_FEE
+----------
+RAHUL
+         1 CSE          18 MALE                4 BBSR                        7.5
+     30000
+
+ANAND
+         2 CSE          28 MALE                4 NEW DELHI                   8.5
+     20000
+
+NAME
+--------------------------------------------------------------------------------
+   ROLL_NO DEPT        AGE GENDER            SEM CITY                       CGPA
+---------- ---- ---------- ---------- ---------- -------------------- ----------
+   BAL_FEE
+----------
+
+ANJALI
+         3 CSE          17 FEMALE              4 KOLKATA                    8.46
+     50000
+
+PRIYA
+         4 CSE          19 FEMALE              4 PUNE                        9.5
+
+NAME
+--------------------------------------------------------------------------------
+   ROLL_NO DEPT        AGE GENDER            SEM CITY                       CGPA
+---------- ---- ---------- ---------- ---------- -------------------- ----------
+   BAL_FEE
+----------
+     10000
+
+AAKARSH
+         6 CSSE         18 MALE                6 VARANASI                    7.5
+     30000
+
+AAYUSH
+
+NAME
+--------------------------------------------------------------------------------
+   ROLL_NO DEPT        AGE GENDER            SEM CITY                       CGPA
+---------- ---- ---------- ---------- ---------- -------------------- ----------
+   BAL_FEE
+----------
+         5 CSSE         19 MALE                6 KANPUR                      8.5
+     20000
+
+NAMAN
+         7 CSSE         20 MALE                6 JAIPUR                      9.5
+     50000
+
+
+NAME
+--------------------------------------------------------------------------------
+   ROLL_NO DEPT        AGE GENDER            SEM CITY                       CGPA
+---------- ---- ---------- ---------- ---------- -------------------- ----------
+   BAL_FEE
+----------
+SHREYA
+         8 CSSE         18 FEMALE              6 ALLAHABAD                   9.3
+     20000
+
+SHALU
+         9 IT           19 FEMALE              6 KOLKATA                     8.3
+      5000
+
+NAME
+--------------------------------------------------------------------------------
+   ROLL_NO DEPT        AGE GENDER            SEM CITY                       CGPA
+---------- ---- ---------- ---------- ---------- -------------------- ----------
+   BAL_FEE
+----------
+
+SILAJEET
+        10 CSSE         20 MALE                6 KOLKATA                     9.5
+     25000
+
+
+10 rows selected.
+
+SQL> SELECT GENDER WHERE GENDER=FEMALE;
+SELECT GENDER WHERE GENDER=FEMALE
+              *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> SELECT NAME WHERE GENDER=FEMALE;
+SELECT NAME WHERE GENDER=FEMALE
+            *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL>

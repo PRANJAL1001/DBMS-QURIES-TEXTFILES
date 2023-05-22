@@ -1,0 +1,244 @@
+SQL> create table STUDENT_2 (name varchar(20) NOT NULL,roll varchar(3) UNIQUE,dept varchar(7),age number(3) CHECK(age>18 AND age<=28),gender varchar(8) CHECK(gender in('male','female')),sem number(2),CGPA number(4,2) NOT NULL);
+
+Table created.
+
+SQL> insert into STUDENT_2 values('shiv','I01','IT',28,'male',7,8.5);
+
+1 row created.
+
+SQL> insert into STUDENT_2 values('KAUSHAL','I02','IT',27,'male',7,9.5);
+
+1 row created.
+
+SQL> insert into STUDENT_2 values('pragyan','I03','IT',25,'female',7,7.5);
+
+1 row created.
+
+SQL> insert into STUDENT_2 values('seenu','C01','CSE',25,'female',8,9.5);
+
+1 row created.
+
+SQL> insert into STUDENT_2 values('kunal','C02','CSE',28,'male',8,9.35);
+
+1 row created.
+
+SQL> insert into STUDENT_2 values('lokesh','C03','CSE',24,'male',8,8.0);
+
+1 row created.
+
+SQL> insert into STUDENT_2 values('amit','E01','ETC',27,'male',6,9.2);
+
+1 row created.
+
+SQL> insert into STUDENT_2 values('amrita','E02','ETC',22,'female',6,7.45);
+
+1 row created.
+
+SQL> insert into STUDENT_2 values('trakeshwar','E03','EEE',26,'male',6,8.45);
+
+1 row created.
+
+SQL> insert into STUDENT_2 values('neha','C04','CSE',23,'female',6,8.45);
+
+1 row created.
+
+SQL> select * from STUDENT_2;
+
+NAME                 ROL DEPT           AGE GENDER          SEM       CGPA
+-------------------- --- ------- ---------- -------- ---------- ----------
+shiv                 I01 IT              28 male              7        8.5
+KAUSHAL              I02 IT              27 male              7        9.5
+pragyan              I03 IT              25 female            7        7.5
+seenu                C01 CSE             25 female            8        9.5
+kunal                C02 CSE             28 male              8       9.35
+lokesh               C03 CSE             24 male              8          8
+amit                 E01 ETC             27 male              6        9.2
+amrita               E02 ETC             22 female            6       7.45
+trakeshwar           E03 EEE             26 male              6       8.45
+neha                 C04 CSE             23 female            6       8.45
+
+10 rows selected.
+
+SQL> select name,roll,dept from STUDENT_2 WHERE dept='CSE' OR dept='IT';
+
+NAME                 ROL DEPT
+-------------------- --- -------
+shiv                 I01 IT
+KAUSHAL              I02 IT
+pragyan              I03 IT
+seenu                C01 CSE
+kunal                C02 CSE
+lokesh               C03 CSE
+neha                 C04 CSE
+
+7 rows selected.
+
+SQL> select name,roll,dept from STUDENT_2 WHERE CGPA>7.5 AND CGPA<9.5;
+
+NAME                 ROL DEPT
+-------------------- --- -------
+shiv                 I01 IT
+kunal                C02 CSE
+lokesh               C03 CSE
+amit                 E01 ETC
+trakeshwar           E03 EEE
+neha                 C04 CSE
+
+6 rows selected.
+
+SQL> select * from STUDENT_2 where order by CGPA desc;
+select * from STUDENT_2 where order by CGPA desc
+                              *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> select * from STUDENT_2 where by CGPA desc;
+select * from STUDENT_2 where by CGPA desc
+                              *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> select * from STUDENT_2 order by CGPA desc;
+
+NAME                 ROL DEPT           AGE GENDER          SEM       CGPA
+-------------------- --- ------- ---------- -------- ---------- ----------
+seenu                C01 CSE             25 female            8        9.5
+KAUSHAL              I02 IT              27 male              7        9.5
+kunal                C02 CSE             28 male              8       9.35
+amit                 E01 ETC             27 male              6        9.2
+shiv                 I01 IT              28 male              7        8.5
+neha                 C04 CSE             23 female            6       8.45
+trakeshwar           E03 EEE             26 male              6       8.45
+lokesh               C03 CSE             24 male              8          8
+pragyan              I03 IT              25 female            7        7.5
+amrita               E02 ETC             22 female            6       7.45
+
+10 rows selected.
+
+SQL> select * from STUDENT_2 order by name asce;
+select * from STUDENT_2 order by name asce
+                                      *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> select name from STUDENT_2 order by name aesc;
+select name from STUDENT_2 order by name aesc
+                                         *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> select name from STUDENT_2 order by name asec;
+select name from STUDENT_2 order by name asec
+                                         *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> select name from STUDENT_2 order by name asc;
+
+NAME
+--------------------
+KAUSHAL
+amit
+amrita
+kunal
+lokesh
+neha
+pragyan
+seenu
+shiv
+trakeshwar
+
+10 rows selected.
+
+SQL> select SUM(age) from STUDENT_2;
+
+  SUM(AGE)
+----------
+       255
+
+SQL> select avg(CGPA) from STUDENT_2 where gender='female' AND dept='IT' OR dept='CSE';
+
+ AVG(CGPA)
+----------
+      8.56
+
+SQL> select MAX(CGPA)AND MIN(CGPA) from STUDENT_2;
+select MAX(CGPA)AND MIN(CGPA) from STUDENT_2
+                *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select MAX(CGPA) AND MIN(CGPA) from STUDENT_2;
+select MAX(CGPA) AND MIN(CGPA) from STUDENT_2
+                 *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select MAX(CGPA) from STUDENT_2;
+
+ MAX(CGPA)
+----------
+       9.5
+
+SQL> select MIN(CGPA) from STUDENT_2;
+
+ MIN(CGPA)
+----------
+      7.45
+
+SQL> select MAX(age) from STUDENT_2;
+
+  MAX(AGE)
+----------
+        28
+
+SQL> select * MAX(age) from STUDENT_2;
+select * MAX(age) from STUDENT_2
+         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select * from STUDENT_2 where MAX(age);
+select * from STUDENT_2 where MAX(age)
+                              *
+ERROR at line 1:
+ORA-00934: group function is not allowed here
+
+
+SQL> select MAX(age) from STUDENT_2;
+
+  MAX(AGE)
+----------
+        28
+
+SQL> select * from STUDENT_2 where age=28;
+
+NAME                 ROL DEPT           AGE GENDER          SEM       CGPA
+-------------------- --- ------- ---------- -------- ---------- ----------
+shiv                 I01 IT              28 male              7        8.5
+kunal                C02 CSE             28 male              8       9.35
+
+SQL> select MIN(age) from STUDENT_2;
+
+  MIN(AGE)
+----------
+        22
+
+SQL> select * from STUDENT_2 where AGE=22;
+
+NAME                 ROL DEPT           AGE GENDER          SEM       CGPA
+-------------------- --- ------- ---------- -------- ---------- ----------
+amrita               E02 ETC             22 female            6       7.45
+
+SQL> SPOOL OFF;
+SQL> COMMIT;
+
+Commit complete.

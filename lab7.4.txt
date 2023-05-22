@@ -1,0 +1,133 @@
+
+SQL*Plus: Release 11.2.0.2.0 Production on Wed Apr 5 16:07:56 2023
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> CONN
+Enter user-name: PRANJAL1835
+Enter password:
+Connected.
+SQL> SELECT * FROM SUPPLIER;
+
+       SID SNAME      LOCATION
+---------- ---------- ----------
+       100 ss         ab
+       101 sb         ac
+       102 sc         ad
+       103 sd         ae
+       104 se         af
+
+SQL> SELECT * FROM SUPPLIER INNER JOIN CATALOUGE ON SUPPLIER.SID=CATALOUGE.SID INNER JOIN PART ON CATALOUGE.PID=PART.PID WHERE COLOR='YELLOW' INTERSECT SELECT * FROM SUPPLIER INNER JOIN CATALOUGE ON SUPPLIER.SID=CATALOUGE.SID INNER JOIN PART ON CATALOUGE.PID=PART.PID WHERE COLOR='GREEN';
+
+no rows selected
+
+SQL> SELECT s.sid FROM SUPPLIER s JOIN CATALOUGE c ON s.sid = c.sid JOIN PART p ON c.pid = p.pid WHERE p.color = 'Green' UNION SELECT sid FROM SUPPLIER WHERE location = 'BBSR';
+
+no rows selected
+
+SQL> SELECT s.sid FROM SUPPLIER s JOIN CATALOUGE c ON s.sid = c.sid JOIN PART p ON c.pid = p.pid WHERE p.color = 'green' UNION SELECT sid FROM SUPPLIER WHERE location = 'BBSR';
+
+       SID
+----------
+       102
+
+SQL> SELECT s.sid FROM SUPPLIER s JOIN CATALOUGE c ON s.sid = c.sid JOIN PART p ON c.pid = p.pid WHERE p.color = 'red';
+
+       SID
+----------
+       100
+
+SQL> SELECT * FROM SUPPLIER s JOIN CATALOUGE c ON s.sid = c.sid JOIN PART p ON c.pid = p.pid WHERE p.color = 'red';
+
+       SID SNAME      LOCATION          SID        PID       COST        PID
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+PNAME      COLOR
+---------- ----------
+       100 ss         ab                100        200         10        200
+pa         red
+
+
+SQL> set linesize 300P;
+SP2-0268: linesize option not a valid number
+SQL> set linesize 300;
+SQL> SELECT * FROM SUPPLIER s JOIN CATALOUGE c ON s.sid = c.sid JOIN PART p ON c.pid = p.pid WHERE p.color = 'red';
+
+       SID SNAME      LOCATION          SID        PID       COST        PID PNAME      COLOR
+---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
+       100 ss         ab                100        200         10        200 pa         red
+
+SQL> SELECT * FROM SUPPLIER s JOIN CATALOUGE c ON s.sid = c.sid JOIN PART p ON c.pid = p.pid WHERE p.color = 'red';
+
+       SID SNAME      LOCATION          SID        PID       COST        PID PNAME      COLOR
+---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ----------
+       100 ss         ab                100        200         10        200 pa         red
+
+SQL> SELECT * FROM SUPPLIER s JOIN CATALOUGE c ON s.sid = c.sid JOIN PART p ON c.pid = p.pid WHERE p.color IS NOT('green');
+SELECT * FROM SUPPLIER s JOIN CATALOUGE c ON s.sid = c.sid JOIN PART p ON c.pid = p.pid WHERE p.color IS NOT('green')
+                                                                                                            *
+ERROR at line 1:
+ORA-00908: missing NULL keyword
+
+
+SQL> SELECT * FROM SUPPLIER s JOIN CATALOUGE c ON s.sid = c.sid JOIN PART p ON c.pid = p.pid WHERE p.color = IS NOT('green');
+SELECT * FROM SUPPLIER s JOIN CATALOUGE c ON s.sid = c.sid JOIN PART p ON c.pid = p.pid WHERE p.color = IS NOT('green')
+                                                                                                        *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> SELECT sid, sname, location FROM SUPPLIER
+  2  MINUS
+  3  SELECT s.sid, s.sname, s.location FROM SUPPLIER s
+  4  JOIN CATA c ON s.sid = c.sid
+  5  JOIN PART p ON c.pid = p.pid
+  6  WHERE p.color = 'Green';
+JOIN CATA c ON s.sid = c.sid
+     *
+ERROR at line 4:
+ORA-00942: table or view does not exist
+
+
+SQL> SELECT sid, sname, location FROM SUPPLIER MINUS SELECT s.sid, s.sname, s.location FROM SUPPLIER s JOIN CATALOUGE c ON s.sid = c.sid JOIN PART p ON c.pid = p.pid WHERE p.color = 'Green';
+
+       SID SNAME      LOCATION
+---------- ---------- ----------
+       100 ss         ab
+       101 sb         ac
+       102 sc         ad
+       103 sd         ae
+       104 se         af
+
+SQL>  select s.* from supplier s left join catalouge c on s.sid=c.sid left join part p on c.pid = p.pid where p.color is null or p.color !='green';
+
+       SID SNAME      LOCATION
+---------- ---------- ----------
+       100 ss         ab
+       101 sb         ac
+       103 sd         ae
+       104 se         af
+
+SQL> SELECT * FROM SUPPLIER INNER JOIN CATALOUGE ON SUPPLIER.SID=CATALOUGE.SID INNER JOIN PART ON CATALOUGE.PID=PART.PID WHERE COLOR='yellow' INTERSECT SELECT * FROM SUPPLIER INNER JOIN CATALOUGE ON SUPPLIER.SID=CATALOUGE.SID INNER JOIN PART ON CATALOUGE.PID=PART.PID WHERE COLOR='green';
+
+no rows selected
+
+SQL> SELECT SUPPLIER.* FROM SUPPLIER INNER JOIN CATALOGUE ON SUPPLIER.SID=CATALOGUE.SID INNER JOIN PART ON CATALOGUE.PID=PART.PID MINUS SELECT SUPPLIER.* FROM SUPPLIER INNER JOIN CATALOGUE ON SUPPLIER.SID=CATALOGUE.SID INNER JOIN PART ON CATALOGUE.PID=PART.PID WHERE COLOR='GREEN'
+  2
+SQL>
+SQL> SELECT SUPPLIER.* FROM SUPPLIER INNER JOIN CATALOGUE ON SUPPLIER.SID=CATALOGUE.SID INNER JOIN PART ON CATALOGUE.PID=PART.PID MINUS SELECT SUPPLIER.* FROM SUPPLIER INNER JOIN CATALOGUE ON SUPPLIER.SID=CATALOGUE.SID INNER JOIN PART ON CATALOGUE.PID=PART.PID WHERE COLOR='GREEN';
+SELECT SUPPLIER.* FROM SUPPLIER INNER JOIN CATALOGUE ON SUPPLIER.SID=CATALOGUE.SID INNER JOIN PART ON CATALOGUE.PID=PART.PID MINUS SELECT SUPPLIER.* FROM SUPPLIER INNER JOIN CATALOGUE ON SUPPLIER.SID=CATALOGUE.SID INNER JOIN PART ON CATALOGUE.PID=PART.PID WHERE COLOR='GREEN'
+                                           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> SELECT SUPPLIER.* FROM SUPPLIER INNER JOIN CATALOUGE ON SUPPLIER.SID=CATALOUGE.SID INNER JOIN PART ON CATALOUGE.PID=PART.PID MINUS SELECT SUPPLIER.* FROM SUPPLIER INNER JOIN CATALOUGE ON SUPPLIER.SID=CATALOUGE.SID INNER JOIN PART ON CATALOUGE.PID=PART.PID WHERE COLOR='green';
+
+       SID SNAME      LOCATION
+---------- ---------- ----------
+       100 ss         ab
+       101 sb         ac
+       103 sd         ae
+       104 se         af
+
+SQL>
