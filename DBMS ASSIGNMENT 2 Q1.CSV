@@ -1,0 +1,182 @@
+SQL>  create table item_master(
+  2  item_no varchar(4) NOT NULL PRIMARY KEY,
+  3  name varchar(20) UNIQUE,
+  4  qty_avl number(8) DEFAULT 100,
+  5  c varchar(2) CHECK(c in('A','B','C')),
+  6  unit varchar(5),
+  7  rdr_lvl number(5) NOT NULL,
+  8  rdr_qty number(8) NOT NULL,
+  9  rate number(8) NOT NULL);
+
+Table created.
+
+SQL>  insert into item_master values('I01','Mobile',5000,'A','pcs',500,2000,8999);
+
+1 row created.
+
+SQL> insert into item_master values('I02','Headphone',1000,'A','pcs',300,1000,999);
+
+1 row created.
+
+SQL> insert into item_master values('I03','Charger',700,'A','pcs',400,1000,399);
+
+1 row created.
+
+SQL> insert into item_master values('I04','Monitor',1000,'B','pcs',100,2000,10000);
+
+1 row created.
+
+SQL> insert into item_master values('I05','Mouse',100,'B','pcs',100,200,500);
+
+1 row created.
+
+SQL> insert into item_master values('I06','Keyboard','100','B','pcs',50,200,800);
+
+1 row created.
+
+SQL> insert into item_master values('I07','HDD',100,'B','pcs',100,500,3000);
+
+1 row created.
+
+SQL> insert into item_master values('I08','Fridge',100,'C','pcs',100,500,1500);
+
+1 row created.
+
+SQL> insert into item_master values('I09','TV Set',1000,'C','pcs',5000,2000,30000);
+
+1 row created.
+
+SQL> insert into item_master values('I10','AC',1000,'C','pcs',500,3000,40000);
+
+1 row created.
+
+SQL> select item_no,name,rate from item_master;
+
+ITEM NAME                       RATE                                            
+---- -------------------- ----------                                            
+I01  Mobile                     8999                                            
+I02  Headphone                   999                                            
+I03  Charger                     399                                            
+I04  Monitor                   10000                                            
+I05  Mouse                       500                                            
+I06  Keyboard                    800                                            
+I07  HDD                        3000                                            
+I08  Fridge                    15000                                            
+I09  TV Set                    30000                                            
+I10  AC                        40000                                            
+
+10 rows selected.
+
+SQL> select * from item_master where C='A' and rate<=1000;
+
+ITEM NAME                    QTY_AVL C  UNIT     RDR_LVL    RDR_QTY       RATE  
+---- -------------------- ---------- -- ----- ---------- ---------- ----------  
+I02  Headphone                  1000 A  pcs          300       1000        999  
+I03  Charger                     700 A  pcs          400       1000        399  
+
+SQL> select * from item_master where C='B' order by qty_avl desc;
+
+ITEM NAME                    QTY_AVL C  UNIT     RDR_LVL    RDR_QTY       RATE  
+---- -------------------- ---------- -- ----- ---------- ---------- ----------  
+I04  Monitor                    1000 B  pcs          100       2000      10000  
+I06  Keyboard                    100 B  pcs           50        200        800  
+I07  HDD                         100 B  pcs          100        500       3000  
+I05  Mouse                       100 B  pcs          100        200        500  
+
+SQL> select * from item_master where name like 'M%' order by rdr_lvl desc;
+
+ITEM NAME                    QTY_AVL C  UNIT     RDR_LVL    RDR_QTY       RATE  
+---- -------------------- ---------- -- ----- ---------- ---------- ----------  
+I01  Mobile                     5000 A  pcs          500       2000       8999  
+I05  Mouse                       100 B  pcs          100        200        500  
+I04  Monitor                    1000 B  pcs          100       2000      10000  
+
+SQL> select * from item_master order by name;
+
+ITEM NAME                    QTY_AVL C  UNIT     RDR_LVL    RDR_QTY       RATE  
+---- -------------------- ---------- -- ----- ---------- ---------- ----------  
+I10  AC                         1000 C  pcs          500       3000      40000  
+I03  Charger                     700 A  pcs          400       1000        399  
+I08  Fridge                      100 C  pcs          100        500      15000  
+I07  HDD                         100 B  pcs          100        500       3000  
+I02  Headphone                  1000 A  pcs          300       1000        999  
+I06  Keyboard                    100 B  pcs           50        200        800  
+I01  Mobile                     5000 A  pcs          500       2000       8999  
+I04  Monitor                    1000 B  pcs          100       2000      10000  
+I05  Mouse                       100 B  pcs          100        200        500  
+I09  TV Set                     1000 C  pcs          500       5000      30000  
+
+10 rows selected.
+
+SQL> create table item_trans(item_no varchar(4),trans_date date,qty number(5));
+
+Table created.
+
+SQL>  ALTER TABLE item_trans
+  2   MODIFY item_no varchar(4) NOT NULL;
+
+Table altered.
+
+SQL> ALTER TABLE item_trans
+  2  ADD FOREIGN KEY (item_no) REFERENCES item_master(item_no) ON DELETE CASCADE;
+
+Table altered.
+
+SQL> insert into item_trans values('I01',to_date('2021-03-21','yyyy-mm-dd'),50);
+
+1 row created.
+
+SQL> insert into item_trans values('I02',to_date('2022-02-01','yyyy-mm-dd'),20);
+
+1 row created.
+
+SQL> insert into item_trans values('I03',to_date('2022-04-23','yyyy-mm-dd'),100);
+
+1 row created.
+
+SQL> insert into item_trans values('I04',to_date('2023-01-21','yyyy-mm-dd'),200);
+
+1 row created.
+
+SQL> insert into item_trans values('I05',to_date('2023-02-07','yyyy-mm-dd'),350);
+
+1 row created.
+
+SQL> insert into item_trans values('I11',to_date('2023-02-07','yyyy-mm-dd'),350);
+insert into item_trans values('I11',to_date('2023-02-07','yyyy-mm-dd'),350)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (PRIYANSHU2012.SYS_C007056) violated - parent 
+key not found 
+
+
+SQL> delete from item_master where item_no='I05';
+
+1 row deleted.
+
+SQL> select * from item_master;
+
+ITEM NAME                    QTY_AVL C  UNIT     RDR_LVL    RDR_QTY       RATE  
+---- -------------------- ---------- -- ----- ---------- ---------- ----------  
+I01  Mobile                     5000 A  pcs          500       2000       8999  
+I02  Headphone                  1000 A  pcs          300       1000        999  
+I03  Charger                     700 A  pcs          400       1000        399  
+I04  Monitor                    1000 B  pcs          100       2000      10000  
+I06  Keyboard                    100 B  pcs           50        200        800  
+I07  HDD                         100 B  pcs          100        500       3000  
+I08  Fridge                      100 C  pcs          100        500      15000  
+I09  TV Set                     1000 C  pcs          500       5000      30000  
+I10  AC                         1000 C  pcs          500       3000      40000  
+
+9 rows selected.
+
+SQL> select * from item_trans;
+
+ITEM TRANS_DAT        QTY                                                       
+---- --------- ----------                                                       
+I01  21-MAR-21         50                                                       
+I02  01-FEB-22         20                                                       
+I03  23-APR-22        100                                                       
+I04  21-JAN-23        200                                                       
+
+SQL> spool off;
